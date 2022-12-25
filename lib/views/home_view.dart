@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_newsapp/controllers/news_controller.dart';
+import 'package:project_newsapp/models/article.dart';
+import 'package:project_newsapp/views/articles_details_page.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -17,81 +19,108 @@ class HomeView extends StatelessWidget {
             style: TextStyle(
                 fontSize: 29,
                 letterSpacing: 2.0,
-                color: Color.fromRGBO(255, 255, 255, 1),
-                fontWeight: FontWeight.bold
-            ),
+                color: Color(0xFF464646),
+                fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
         ),
-        body: Obx(() => _newsController.isLoading.value ?
-        const Center(
-          child: CircularProgressIndicator(
-            color: Color.fromRGBO(255, 255, 255, 1),
-          ),
-        ) : ListView.builder(
+        body: Obx(
+          () => _newsController.isLoading.value
+              ? const Center(
+                  child: CircularProgressIndicator(
+                    color: Color.fromRGBO(255, 255, 255, 1),
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: _newsController.articles.length,
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      margin: const EdgeInsets.fromLTRB(16, 18, 16, 18),
+                      decoration: BoxDecoration(
+                          // color: const Color(0xFF464646),
+                          borderRadius: BorderRadius.circular(15.0)),
+                      child: Card(
+                        
+                        margin: EdgeInsets.zero,
+                        
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                        shadowColor: Colors.black87,
+                        elevation: 300.0,
 
-          itemCount: _newsController.articles.length,
-          physics: const BouncingScrollPhysics(),
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-              margin: const EdgeInsets.fromLTRB(16, 24, 16, 24),
-              // padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                  color: const Color.fromRGBO(5, 40, 38, 1),
-                  borderRadius: BorderRadius.circular(8)
+                        child: Stack(
 
-              ),
-              child:
-              Card(
-                child:
+                         alignment: Alignment.bottomCenter,
+                          children: [
 
+                            Ink.image(
+                              image: NetworkImage(
+                                _newsController.articles[index].urlToImage!,
+                              ),
+                              fit: BoxFit.cover,
+                              height: 250,
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ArticlePage(
+                                              article: _newsController
+                                                  .articles[index])));
+                                  //_newsController.articles[index].description;
+                                },
+                              ),
+                            ),
+                            SafeArea(
+                              child: Column(
+                                children: [
+                                  Positioned(
+                                    top: 1000,
+                                    left: 600,
+                                    right: 1000,
+                                    child:
+                                  Text(
+                                    _newsController.articles[index].title!,
+                                   // textAlign: TextAlign.end,
+                                    style: const TextStyle(
+                                      color: Color.fromRGBO(255, 255, 255, 1),
+                                      fontSize: 18,
+                                      fontFamily: 'RobotoSlab',
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                  ),
+                                 SizedBox(
+                                   height: 10,
+                                 ),
 
-                Stack(
+                                  Positioned(
+                                    top:5000,
+                                    left: 4000,
+                                    child:
+                                  Text(
+                                    
+                                    _newsController
+                                        .articles[index].publishedAt!,
+                                  //  textAlign: TextAlign.justify,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
 
-                  alignment: Alignment(1,1 ),
-                  children:[
-
-
-                    Ink.image(image: NetworkImage(
-                      _newsController.articles[index].urlToImage!,
-
-                    ),
-                      fit: BoxFit.cover,
-                      height:250 ,
-                      child: InkWell(
-                        onTap: (){
-                          _newsController.articles[index].description;
-                        },
+                                  ),
+                                  SizedBox(height: 10,),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-
-                    ),
-                    Text(
-
-                      _newsController.articles[index].title!,
-                      textAlign: TextAlign.start,
-                      style: const TextStyle(
-                        color: Color.fromRGBO(255, 255, 255, 1),
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                    SizedBox(height: 24,width: double.infinity,),
-                    Text(_newsController.articles[index].publishedAt!,
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-
-                    ),
-
-
-                  ],
+                    );
+                  },
                 ),
-
-              ),
-            );
-          },
-        ),
-        )
-    );
+        ));
   }
 }
