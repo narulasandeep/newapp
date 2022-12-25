@@ -5,10 +5,12 @@ import 'package:project_newsapp/models/article.dart';
 import 'package:project_newsapp/views/articles_details_page.dart';
 
 class HomeView extends StatelessWidget {
+  
   const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    
     final NewsController _newsController = Get.put(NewsController());
     return Scaffold(
         backgroundColor: const Color(0xFF464646),
@@ -101,16 +103,19 @@ class HomeView extends StatelessWidget {
                                     left: 4000,
                                     child:
                                   Text(
-                                    
                                     _newsController
-                                        .articles[index].publishedAt!,
+                                        .articles[index].publishedAt!.substring(0,10)
+                                    ,
                                   //  textAlign: TextAlign.justify,
                                     style: TextStyle(
                                       color: Colors.white,
                                     ),
                                   ),
 
+
                                   ),
+
+
                                   SizedBox(height: 10,),
                                 ],
                               ),

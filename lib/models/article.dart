@@ -1,12 +1,14 @@
 import 'dart:convert';
 
+import 'package:project_newsapp/models/source_model.dart';
+
 List<Articles> articlesFromJson(String str) =>
     List<Articles>.from(json.decode(str)['articles'].map((x) =>
         Articles.fromJson(Map<String, dynamic>.from(x))
     ));
 
 class Articles {
- // String ? source;
+  Source ? source;
   String ? author;
   String ? title;
   String ? description;
@@ -17,7 +19,7 @@ class Articles {
 
   Articles(
       {
-       // this.source,
+        this.source,
         this.author,
         this.title,
         this.description,
@@ -27,7 +29,7 @@ class Articles {
         this.content});
 
   Articles.fromJson(Map<String, dynamic> json) {
-   // source = json['source'];
+    source = Source.fromJson(json['source']);
     author = json['author'];
     title = json['title'];
     description = json['description'];
@@ -39,7 +41,8 @@ class Articles {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-   // data['source'] = this.source;
+    var src = this.source;
+   // data['source'] = src.name;
     data['author'] = this.author;
     data['title'] = this.title;
     data['description'] = this.description;
