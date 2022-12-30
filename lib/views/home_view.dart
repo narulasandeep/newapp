@@ -108,7 +108,9 @@ class HomeView extends StatelessWidget {
                                   ),
                                   SizedBox(
                                     height: 10,
-                                  )
+                                  ),
+                            //      Text(_newsController.articles[0].sourceName.toString()),
+                                    //    Text(_newsController.articles['source']['name'].toString()),
                                 ],
                               ),
                             ),

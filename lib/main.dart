@@ -17,7 +17,7 @@ class App extends StatelessWidget {
       theme: ThemeData.light(),
       darkTheme: ThemeData(),
       themeMode: ThemeMode.system,
-      home: HomeView(),
+      home:  HomeView(),
     );
   }
 }
