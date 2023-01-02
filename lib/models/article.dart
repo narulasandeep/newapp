@@ -6,8 +6,7 @@ List<Articles> articlesFromJson(String str) =>
     ));
 
 class Articles {
-  String ?sourceId;
-  String ?sourceName;
+
   String ? author;
   String ? title;
   String ? description;
@@ -18,8 +17,7 @@ class Articles {
 
   Articles(
       {
-        this.sourceId,
-        this.sourceName,
+
         this.author,
         this.title,
         this.description,
@@ -29,8 +27,6 @@ class Articles {
         this.content});
 
   Articles.fromJson(Map<String, dynamic> json) {
-    sourceId = json['sourceId'];
-    sourceName = json['sourceName'];
     author = json['author'];
     title = json['title'];
     description = json['description'];
@@ -42,8 +38,6 @@ class Articles {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['sourceId'] = this.sourceId;
-    data['sourceName'] = this.sourceName;
     data['author'] = this.author;
     data['title'] = this.title;
     data['description'] = this.description;
