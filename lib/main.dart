@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:project_newsapp/views/home_view.dart';
-import 'package:sqflite/sqflite.dart';
 
 void main() {
   runApp(const App());
@@ -17,7 +17,7 @@ class App extends StatelessWidget {
       theme: ThemeData.light(),
       darkTheme: ThemeData(),
       themeMode: ThemeMode.system,
-      home: const HomeView(),
+      home:  HomeView(),
     );
   }
 }
