@@ -51,12 +51,9 @@ class HomeView extends StatelessWidget {
                         ),
                         shadowColor: Colors.black87,
                         elevation: 300.0,
-
                         child: Stack(
-
-                         alignment: Alignment.bottomCenter,
+                          alignment: Alignment.bottomCenter,
                           children: [
-
                             Ink.image(
                               image: NetworkImage(
                                 _newsController.articles[index].urlToImage!,
@@ -79,9 +76,9 @@ class HomeView extends StatelessWidget {
                               child: Column(
                                 children: [
                                   Positioned(
-                                    top: 1000,
-                                    left: 600,
-                                    right: 1000,
+                                  //  top: 1000,
+                                  //  left: 600,
+                                  //  right: 1000,
                                     child:
                                   Text(
                                     _newsController.articles[index].title!,
@@ -99,8 +96,8 @@ class HomeView extends StatelessWidget {
                                  ),
 
                                   Positioned(
-                                    top:5000,
-                                    left: 4000,
+                                   // top:5000,
+                                   // left: 4000,
                                     child:
                                   Text(
                                     _newsController
