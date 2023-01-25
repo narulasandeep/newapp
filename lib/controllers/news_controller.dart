@@ -1,6 +1,8 @@
+/*
 import 'package:get/get.dart';
 
 import 'package:project_newsapp/models/article.dart';
+import 'package:project_newsapp/services/news_repo.dart';
 import 'package:project_newsapp/services/news_service.dart';
 
 class NewsController extends GetxController {
@@ -26,4 +28,4 @@ class NewsController extends GetxController {
     }
   }
 
-}
+}*/

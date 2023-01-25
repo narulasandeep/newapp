@@ -1,17 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:project_newsapp/controllers/news_controller.dart';
-import 'package:project_newsapp/models/article.dart';
-import 'package:project_newsapp/views/articles_details_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+//import 'package:get/get.dart';
+import 'package:project_newsapp/bloc/news_bloc.dart';
+import 'package:project_newsapp/bloc/news_event.dart';
+import 'package:project_newsapp/bloc/news_state.dart';
+//import 'package:project_newsapp/controllers/news_controller.dart';
+//import 'package:project_newsapp/models/article.dart';
+//import 'package:project_newsapp/views/articles_details_page.dart';
+import 'package:project_newsapp/views/error.dart';
+import 'package:project_newsapp/views/list.dart';
+import 'package:project_newsapp/views/loading.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   
   const HomeView({Key? key}) : super(key: key);
 
   @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+
+  late NewsBloc newsBloc;
+
+  @override
+  void initState() {
+    newsBloc = BlocProvider.of<NewsBloc>(context);
+    newsBloc.add(FetchNewsEvent());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    
-    final NewsController _newsController = Get.put(NewsController());
+
+   // final NewsController _newsController = Get.put(NewsController());
     return Scaffold(
         backgroundColor: const Color(0xFF464646),
         appBar: AppBar(
@@ -26,106 +48,22 @@ class HomeView extends StatelessWidget {
           ),
           centerTitle: true,
         ),
-        body: Obx(
-          () => _newsController.isLoading.value
-              ? const Center(
-                  child: CircularProgressIndicator(
-                    color: Color.fromRGBO(255, 255, 255, 1),
-                  ),
-                )
-              : ListView.builder(
-                  itemCount: _newsController.articles.length,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: const EdgeInsets.fromLTRB(16, 18, 16, 18),
-                      decoration: BoxDecoration(
-                          // color: const Color(0xFF464646),
-                          borderRadius: BorderRadius.circular(15.0)),
-                      child: Card(
-                        
-                        margin: EdgeInsets.zero,
-                        
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        shadowColor: Colors.black87,
-                        elevation: 300.0,
+        body:Center(
 
-                        child: Stack(
+          child: BlocBuilder<NewsBloc, NewsState>(builder: (context, state) {
+    if (state is NewsInitialState) {
+    return buildLoading();
+    } else if (state is NewsLoadingState) {
+    return buildLoading();
+    } else if (state is NewsLoadedState) {
+    return buildHintsList(state.articles);
+    } else if (state is NewsErrorState) {
+    return buildError(state.message);
 
-                         alignment: Alignment.bottomCenter,
-                          children: [
-
-                            Ink.image(
-                              image: NetworkImage(
-                                _newsController.articles[index].urlToImage!,
-                              ),
-                              fit: BoxFit.cover,
-                              height: 250,
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => ArticlePage(
-                                              article: _newsController
-                                                  .articles[index])));
-                                  //_newsController.articles[index].description;
-                                },
-                              ),
-                            ),
-                            SafeArea(
-                              child: Column(
-                                children: [
-                                  Positioned(
-                                    top: 1000,
-                                    left: 600,
-                                    right: 1000,
-                                    child:
-                                  Text(
-                                    _newsController.articles[index].title!,
-                                   // textAlign: TextAlign.end,
-                                    style: const TextStyle(
-                                      color: Color.fromRGBO(255, 255, 255, 1),
-                                      fontSize: 18,
-                                      fontFamily: 'RobotoSlab',
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                  ),
-                                  ),
-                                 SizedBox(
-                                   height: 10,
-                                 ),
-
-                                  Positioned(
-                                    top:5000,
-                                    left: 4000,
-                                    child:
-                                  Text(
-                                    _newsController
-                                        .articles[index].publishedAt!.substring(0,10)
-                                    ,
-                                  //  textAlign: TextAlign.justify,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-
-
-                                  ),
-
-
-                                  SizedBox(height: 10,),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-        ));
+    }
+    else return buildLoading();
+    }),
+        ),
+    );
   }
 }

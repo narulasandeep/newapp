@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:project_newsapp/bloc/news_bloc.dart';
+import 'package:project_newsapp/services/news_repo.dart';
 
 import 'package:project_newsapp/views/home_view.dart';
 
@@ -12,12 +15,14 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
       darkTheme: ThemeData(),
       themeMode: ThemeMode.system,
-      home:  HomeView(),
+      home:  BlocProvider(
+        create: (context) => NewsBloc(webService: NewsWebServiceImpl()),
+    child: HomeView()),
     );
   }
 }
