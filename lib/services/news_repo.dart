@@ -1,10 +1,7 @@
-import 'dart:convert';
 
-//import 'package:groceries_app/data/model/food.dart';
 import 'package:http/http.dart' as http;
 import 'package:project_newsapp/constants/constants.dart';
 import 'package:project_newsapp/models/article.dart';
-import 'package:project_newsapp/services/news_service.dart';
 
 abstract class NewsWebService {
   Future<List<Articles>> fetchNews();

@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-
 import 'package:project_newsapp/models/article.dart';
 import 'package:project_newsapp/views/articles_details_page.dart';
 
@@ -68,7 +65,7 @@ Widget buildHintsList(List<Articles> articles) {
                          ),
                        ),
                      ),
-                     SizedBox(
+                     const SizedBox(
                        height: 10,
                      ),
 
@@ -80,7 +77,7 @@ Widget buildHintsList(List<Articles> articles) {
                          articles[index].publishedAt!.substring(0,10)
                          ,
                          //  textAlign: TextAlign.justify,
-                         style: TextStyle(
+                         style: const TextStyle(
                            color: Colors.white,
                          ),
                        ),
@@ -89,7 +86,7 @@ Widget buildHintsList(List<Articles> articles) {
                      ),
 
 
-                     SizedBox(height: 10,),
+                     const SizedBox(height: 10,),
                    ],
                  ),
                ),
