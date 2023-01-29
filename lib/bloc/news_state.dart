@@ -8,21 +8,21 @@ class NewsInitialState extends NewsState {
   List<Object> get props => [];
 }
 
-class NewsLoadingState extends NewsState {
-  @override
-  List<Object> get props => [];
-}
 
 class NewsLoadedState extends NewsState {
   List<Articles> articles;
   NewsLoadedState({required this.articles});
   @override
-  Null get props => null;
+  List<Object> get props => [];
+
+  //Null get props => null;
 }
 
 class NewsErrorState extends NewsState {
   String message;
   NewsErrorState({required this.message});
   @override
-  Null get props => null;
+  List<Object> get props => [];
+
+  //Null get props => null;
 }

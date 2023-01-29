@@ -13,7 +13,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
     on<FetchNewsEvent>((event, emit) async {
       if (event is NewsEvent) {
-        emit(NewsLoadingState());
+        emit(NewsInitialState());
 
         try {
           List<Articles> articles = await webService.fetchNews();

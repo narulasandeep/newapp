@@ -53,8 +53,6 @@ class _HomeViewState extends State<HomeView> {
           child: BlocBuilder<NewsBloc, NewsState>(builder: (context, state) {
     if (state is NewsInitialState) {
     return buildLoading();
-    } else if (state is NewsLoadingState) {
-    return buildLoading();
     } else if (state is NewsLoadedState) {
     return buildHintsList(state.articles);
     } else if (state is NewsErrorState) {
