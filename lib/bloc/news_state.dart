@@ -14,15 +14,10 @@ class NewsLoadedState extends NewsState {
   NewsLoadedState({required this.articles});
   @override
   List<Object> get props => [];
-
-  //Null get props => null;
 }
-
 class NewsErrorState extends NewsState {
   String message;
   NewsErrorState({required this.message});
   @override
   List<Object> get props => [];
-
-  //Null get props => null;
 }
